@@ -2,23 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
-        <item android:id="@+id/nav_camara" android:icon="@android:drawable/ic_menu_camera"
+        <item android:id="@+id/add_reminder" android:icon="@android:drawable/ic_menu_today"
             android:title="Add reminder" />
-        <item android:id="@+id/nav_gallery" android:icon="@android:drawable/ic_menu_gallery"
-            android:title="Gallery" />
-        <item android:id="@+id/nav_slideshow" android:icon="@android:drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item android:id="@+id/nav_manage" android:icon="@android:drawable/ic_menu_manage"
-            android:title="Tools" />
+        <item android:id="@+id/add_health" android:icon="@android:drawable/ic_input_add"
+            android:title="Add health provider" />
+        <item android:id="@+id/account_details" android:icon="@android:drawable/ic_menu_info_details"
+            android:title="Account details" />
+        <item android:id="@+id/visit_website" android:icon="@android:drawable/ic_menu_manage"
+            android:title="Visit website" />
+
+
+        <item android:id="@+id/share" android:icon="@android:drawable/ic_menu_share"
+            android:title="Share" />
+        <item android:id="@+id/logout" android:icon="@android:drawable/ic_lock_power_off"
+            android:title="Logout" />
+
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item android:id="@+id/nav_share" android:icon="@android:drawable/ic_menu_share"
-                android:title="Share" />
-            <item android:id="@+id/nav_send" android:icon="@android:drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
 
 </menu>
