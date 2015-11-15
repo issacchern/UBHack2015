@@ -20,4 +20,5 @@
         completions."
     </string>
     <string name="title_activity_maps">Map</string>
+    <string name="title_activity_add_reminder">AddReminderActivity</string>
 </resources>

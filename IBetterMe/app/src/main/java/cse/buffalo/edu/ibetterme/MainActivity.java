@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
@@ -35,13 +36,11 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+
     protected static final int RESULT_SPEECH = 1;
-    private TextView txtText;
-    private String str = "";
+
     private EditText editText;
-    final Context context = this;
-    private SpeechRecognizer sr;
-    private static final String TAG = "MyStt3Activity";
+    boolean doubleBackToExitPressedOnce = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
                 try {
                     startActivityForResult(intent, RESULT_SPEECH);
-                    editText.setText("",TextView.BufferType.EDITABLE);
+                    editText.setText("", TextView.BufferType.EDITABLE);
 
 
                 } catch (ActivityNotFoundException a) {
@@ -95,6 +94,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+
     }
 
     @Override
@@ -103,7 +103,24 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+
+
+            if(doubleBackToExitPressedOnce) {
+                // this is to close the app entirely, but it will still be in the stack
+                Intent a = new Intent(Intent.ACTION_MAIN);
+                a.addCategory(Intent.CATEGORY_HOME);
+                a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(a);
+            }
+            this.doubleBackToExitPressedOnce = true;
+            Toast.makeText(this, "Please click BACK again to exit", Toast.LENGTH_SHORT).show();
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    doubleBackToExitPressedOnce = false;
+                }
+            }, 2000);
         }
     }
 
@@ -138,35 +155,8 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.add_reminder) {
 
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-            alert.setTitle("Add Reminder");
-            alert.setMessage("");
-
-            LinearLayout layout = new LinearLayout(this);
-            layout.setOrientation(LinearLayout.VERTICAL);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(20, 0, 30, 0);
-
-            EditText textBox = new EditText(this);
-            layout.addView(textBox, params);
-
-            alert.setView(layout);
-
-            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // do nothing
-                }
-            });
-
-            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int whichButton) {
-                    // do nothing
-                }
-            });
-
-            alert.show();
+            Intent intent = new Intent(MainActivity.this, AddReminderActivity.class);
+            startActivity(intent);
 
 
 
@@ -199,7 +189,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.logout) {
 
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-            MainActivity.this.finish();
             startActivity(intent);
 
         } else if(id == R.id.history){

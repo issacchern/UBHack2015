@@ -21,10 +21,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:windowSoftInputMode="adjustPan"
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,8 +35,11 @@
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
-
-
+        <activity
+            android:name=".AddReminderActivity"
+            android:label="Add reminder"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>
