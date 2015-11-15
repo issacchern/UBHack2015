@@ -40,6 +40,12 @@
             android:label="Add reminder"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <activity
+            android:name=".AddHealthCareProviderActivity"
+            android:label="Add Health Provider"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

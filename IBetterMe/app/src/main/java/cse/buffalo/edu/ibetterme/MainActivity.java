@@ -1,6 +1,7 @@
 package cse.buffalo.edu.ibetterme;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -25,6 +26,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -163,10 +165,49 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.add_health) {
 
 
+            Intent intent = new Intent(MainActivity.this, AddHealthCareProviderActivity.class);
+            startActivity(intent);
+
 
 
 
         } else if (id == R.id.account_details) {
+
+            //set up dialog
+            Dialog dialog = new Dialog(this);
+            dialog.setContentView(R.layout.maindialog);
+            dialog.setTitle("Account details");
+            dialog.setCancelable(true);
+            //there are a lot of settings, for dialog, check them all out!
+
+            //set up text
+            TextView text = (TextView) dialog.findViewById(R.id.TextView01);
+
+            text.setText("Name: Donald Trump\nPhone number: 123456789\nDate of birth: 01/01/1991\n" +
+                "Healthcare provider: BlueCrossBlueShield\nProvider phone number:3242333333\n" +
+                    "Provider email: bcbs.gmail.com\nEMT ID: 3456 \nEmergency no 1: 1234567890\n" +
+            "Emergency no 2: 09876543211\nEmergency no 3: 1232123212321 ");
+            text.setPadding(10,10,10,10);
+
+
+            //set up image view
+            ImageView img = (ImageView) dialog.findViewById(R.id.ImageView01);
+            img.setImageResource(R.drawable.small_trump);
+
+            //set up button
+            Button button = (Button) dialog.findViewById(R.id.Button01);
+            button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            //now that the dialog is set up, it's time to show it
+            dialog.show();
+
+
+
+
 
 
 
