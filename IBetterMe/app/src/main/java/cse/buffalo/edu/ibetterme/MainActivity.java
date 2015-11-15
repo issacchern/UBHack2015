@@ -1,7 +1,9 @@
 package cse.buffalo.edu.ibetterme;
 
+import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,7 +12,8 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -21,7 +24,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +37,9 @@ public class MainActivity extends AppCompatActivity
 
     protected static final int RESULT_SPEECH = 1;
     private TextView txtText;
-
+    private String str = "";
+    private EditText editText;
+    final Context context = this;
     private SpeechRecognizer sr;
     private static final String TAG = "MyStt3Activity";
 
@@ -53,7 +60,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        txtText = (TextView) findViewById(R.id.txtText);
+
+
+        editText = (EditText) findViewById(R.id.editText);
 
         ImageView imgFavorite = (ImageView) findViewById(R.id.recorder);
         imgFavorite.setClickable(true);
@@ -68,7 +77,9 @@ public class MainActivity extends AppCompatActivity
 
                 try {
                     startActivityForResult(intent, RESULT_SPEECH);
-                    txtText.setText("");
+                    editText.setText("",TextView.BufferType.EDITABLE);
+
+
                 } catch (ActivityNotFoundException a) {
                     Toast t = Toast.makeText(getApplicationContext(),
                             "Opps! Your device doesn't support Speech to Text",
@@ -121,63 +132,90 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-//        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
-//
-//        Fragment fragment = null;
-//
-//        if (id == R.id.add_reminder) {
-//
-//
-//            fragment = new AddReminderFragment();
-//
-//
-//        } else if (id == R.id.add_health) {
-//
-//           // fragment = new AddHealthProviderFragment();
-//
-//        } else if (id == R.id.account_details) {
-//
-//          //  fragment = new AccountDetailFragment();
-//
-//        } else if (id == R.id.visit_website) {
-//
-//            String url = "http://vcheng3.github.io/";
-//            Intent i = new Intent(Intent.ACTION_VIEW);
-//            i.setData(Uri.parse(url));
-//            startActivity(i);
-//
-//
-//        } else if (id == R.id.share) {
-//
-//            Intent sendIntent = new Intent();
-//            sendIntent.setAction(Intent.ACTION_SEND);
-//            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
-//            sendIntent.setType("text/plain");
-//            startActivity(sendIntent);
-//
-//        } else if (id == R.id.logout) {
-//
-//      //      Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-//      //      MainActivity.this.finish();
-//      //      startActivity(intent);
-//
-//        } else if(id == R.id.history){
-//
-//        //    fragment = new HistoryFragment();
-//
-//
-//        } else if(id == R.id.home_button){
-//
-//
-//        }
-//
-//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//    //    transaction.replace(R.id.fragment_container, fragment);
-//        transaction.addToBackStack(null);
-//
-//        // Commit the transaction
-//        transaction.commit();
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+
+        if (id == R.id.add_reminder) {
+
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+
+            alert.setTitle("Add Reminder");
+            alert.setMessage("");
+
+            LinearLayout layout = new LinearLayout(this);
+            layout.setOrientation(LinearLayout.VERTICAL);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.setMargins(20, 0, 30, 0);
+
+            EditText textBox = new EditText(this);
+            layout.addView(textBox, params);
+
+            alert.setView(layout);
+
+            alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // do nothing
+                }
+            });
+
+            alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int whichButton) {
+                    // do nothing
+                }
+            });
+
+            alert.show();
+
+
+
+        } else if (id == R.id.add_health) {
+
+
+
+
+
+        } else if (id == R.id.account_details) {
+
+
+
+        } else if (id == R.id.visit_website) {
+
+            String url = "http://vcheng3.github.io/";
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(url));
+            startActivity(i);
+
+
+        } else if (id == R.id.share) {
+
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+            sendIntent.setType("text/plain");
+            startActivity(sendIntent);
+
+        } else if (id == R.id.logout) {
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            MainActivity.this.finish();
+            startActivity(intent);
+
+        } else if(id == R.id.history){
+
+        //    fragment = new HistoryFragment();
+
+
+        } else if(id == R.id.home_button){
+
+
+
+
+
+        }
+
+
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -197,7 +235,8 @@ public class MainActivity extends AppCompatActivity
                     ArrayList<String> text = data
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
 
-                    txtText.setText(text.get(0));
+
+                    editText.setText(text.get(0),TextView.BufferType.EDITABLE);
                 }
                 break;
             }
