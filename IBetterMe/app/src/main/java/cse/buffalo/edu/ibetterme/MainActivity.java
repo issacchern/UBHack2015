@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    private String globalstr ="";
     protected static final int RESULT_SPEECH = 1;
     private Button emailButton;
     private EditText editText;
@@ -104,19 +105,24 @@ public class MainActivity extends AppCompatActivity
 
                 }
                 else {
-                    Toast emailSent = Toast.makeText(getApplicationContext(), "Email sent to bcbs.gmail.com!", Toast.LENGTH_LONG);
-                    emailSent.getView().setBackgroundColor(Color.GREEN);
-                    emailSent.show();
+
+                   // Toast emailSent = Toast.makeText(getApplicationContext(), "Email sent to bcbs.gmail.com!", Toast.LENGTH_LONG);
+                   // emailSent.getView().setBackgroundColor(Color.GREEN);
+                   // emailSent.show();
+
+//                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+//                    emailIntent.setType("text/plain");
+//                    startActivity(emailIntent);
+
+                    Intent intent = new Intent (Intent.ACTION_VIEW , Uri.parse("mailto:" + "bcbs@gmail.com"));
+                    intent.putExtra(Intent.EXTRA_SUBJECT, "Need Help from Donna Trump");
+                    intent.putExtra(Intent.EXTRA_TEXT, editText.getText().toString());
+                    startActivity(intent);
 
 
                 }
             }
         });
-
-
-
-
-
 
 
     }
@@ -205,10 +211,10 @@ public class MainActivity extends AppCompatActivity
             //set up text
             TextView text = (TextView) dialog.findViewById(R.id.TextView01);
 
-            text.setText("Name: Donald Trump\nPhone number: 123456789\nDate of birth: 01/01/1991\n" +
-                "Healthcare provider: BlueCrossBlueShield\nProvider phone number:3242333333\n" +
+            text.setText("Name: Donna Trump\nPhone number: 123456789\nDate of birth: 01/01/1991\n" +
+                "Healthcare provider: BlueCrossBlueShield\nProvider phone number:3334441111\n" +
                     "Provider email: bcbs.gmail.com\nEMT ID: 3456 \nEmergency no 1: 1234567890\n" +
-            "Emergency no 2: 09876543211\nEmergency no 3: 1232123212321 ");
+            "Emergency no 2: 09876543211");
             text.setPadding(10, 10, 10, 10);
 
 
@@ -287,12 +293,15 @@ public class MainActivity extends AppCompatActivity
 
                     editText.setText(text.get(0),TextView.BufferType.EDITABLE);
 
-                    if(text.get(0).equals("help")){
+                    globalstr = text.get(0);
+
+                    if(text.get(0).equals("help") || text.get(0).equals("help me")){
                         String posted_by = "111-333-2222";
                         String uri = "tel:" + posted_by.trim() ;
                         Intent intent = new Intent(Intent.ACTION_DIAL);
                         intent.setData(Uri.parse(uri));
                         startActivity(intent);
+
                     }
                 }
                 break;

@@ -38,6 +38,7 @@
         <activity
             android:name=".AddReminderActivity"
             android:label="Add reminder"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
         <activity

@@ -58,7 +58,8 @@ public class LoginActivity extends AppCompatActivity {
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(username.getText().equals("donnatrump") && password.getText().equals("asdf")){
+
+                if(username.getText().toString().equals("donnatrump") && password.getText().toString().equals("asdf")){
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     startActivity(intent);
                     Toast.makeText(getApplicationContext(), "Welcome back!", Toast.LENGTH_LONG).show();
