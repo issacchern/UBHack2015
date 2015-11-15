@@ -69,6 +69,7 @@
             android:scrollbars="vertical" />
 
         <Button
+            android:id="@+id/email_to_provider"
             android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

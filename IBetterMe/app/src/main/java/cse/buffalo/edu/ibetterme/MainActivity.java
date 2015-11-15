@@ -7,6 +7,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,7 +41,7 @@ public class MainActivity extends AppCompatActivity
 
 
     protected static final int RESULT_SPEECH = 1;
-
+    private Button emailButton;
     private EditText editText;
     boolean doubleBackToExitPressedOnce = false;
 
@@ -88,6 +89,27 @@ public class MainActivity extends AppCompatActivity
                     t.show();
                 }
 
+            }
+        });
+
+        emailButton = (Button) findViewById(R.id.email_to_provider);
+
+        emailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (editText.getText().toString().trim().isEmpty()) {
+                    Toast noEmail = Toast.makeText(getApplicationContext(), "Please type or speak your email first. ", Toast.LENGTH_LONG);
+                    noEmail.getView().setBackgroundColor(Color.RED);
+                    noEmail.show();
+
+                }
+                else {
+                    Toast emailSent = Toast.makeText(getApplicationContext(), "Email sent to bcbs.gmail.com!", Toast.LENGTH_LONG);
+                    emailSent.getView().setBackgroundColor(Color.GREEN);
+                    emailSent.show();
+
+
+                }
             }
         });
 
@@ -174,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.account_details) {
 
             //set up dialog
-            Dialog dialog = new Dialog(this);
+            final Dialog dialog = new Dialog(this);
             dialog.setContentView(R.layout.maindialog);
             dialog.setTitle("Account details");
             dialog.setCancelable(true);
@@ -187,7 +209,7 @@ public class MainActivity extends AppCompatActivity
                 "Healthcare provider: BlueCrossBlueShield\nProvider phone number:3242333333\n" +
                     "Provider email: bcbs.gmail.com\nEMT ID: 3456 \nEmergency no 1: 1234567890\n" +
             "Emergency no 2: 09876543211\nEmergency no 3: 1232123212321 ");
-            text.setPadding(10,10,10,10);
+            text.setPadding(10, 10, 10, 10);
 
 
             //set up image view
@@ -200,15 +222,11 @@ public class MainActivity extends AppCompatActivity
                 @Override
                 public void onClick(View v) {
 
+                    dialog.dismiss();
                 }
             });
             //now that the dialog is set up, it's time to show it
             dialog.show();
-
-
-
-
-
 
 
         } else if (id == R.id.visit_website) {
@@ -234,12 +252,13 @@ public class MainActivity extends AppCompatActivity
 
         } else if(id == R.id.history){
 
-        //    fragment = new HistoryFragment();
+
+            Intent intent = new Intent(MainActivity.this, HistActivity.class);
+            intent.putExtra("ABC", "");
+            startActivity(intent);
 
 
         } else if(id == R.id.home_button){
-
-
 
 
 

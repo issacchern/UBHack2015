@@ -31,14 +31,20 @@ public class HistActivity extends AppCompatActivity {
         ListView listViewReminder = (ListView) findViewById(R.id.listViewReminders);
         listViewReminder.setAdapter(arrayAdapterReminder);
 
-        //  Intent getIntent = new Intent(HistoryActivity.this, AddReminderActivity.class);
-        String str = getIntent().getExtras().getString("ABC");
+        String
+            str = getIntent().getExtras().getString("ABC");
+
+
 
         registerForContextMenu(listViewReminder);
         try{
             Log.i("ON CREATE", "Hi, the on create has occurred");
 
-            arrayAdapterReminder.add("Set " + str + " reminder on 11/15");
+            if(str != ""){
+                arrayAdapterReminder.add("Set " + str + " reminder on 11/15");
+            }
+
+
             arrayAdapterReminder.add("Missed medicine time on 11/3");
             arrayAdapterReminder.add("Paid medical bill on time on 10/30");
             arrayAdapterReminder.add("Took medicine on time on 10/23");
