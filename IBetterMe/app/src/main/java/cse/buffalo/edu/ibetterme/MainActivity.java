@@ -1,10 +1,17 @@
 package cse.buffalo.edu.ibetterme;
 
 import android.app.FragmentTransaction;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -14,9 +21,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    protected static final int RESULT_SPEECH = 1;
+    private TextView txtText;
+
+    private SpeechRecognizer sr;
+    private static final String TAG = "MyStt3Activity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +52,38 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        txtText = (TextView) findViewById(R.id.txtText);
+
+        ImageView imgFavorite = (ImageView) findViewById(R.id.recorder);
+        imgFavorite.setClickable(true);
+        imgFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(
+                        RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+
+                intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, "en-US");
+
+                try {
+                    startActivityForResult(intent, RESULT_SPEECH);
+                    txtText.setText("");
+                } catch (ActivityNotFoundException a) {
+                    Toast t = Toast.makeText(getApplicationContext(),
+                            "Opps! Your device doesn't support Speech to Text",
+                            Toast.LENGTH_SHORT);
+                    t.show();
+                }
+
+            }
+        });
+
+
+
+
+
+
     }
 
     @Override
@@ -71,40 +121,87 @@ public class MainActivity extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-        if (id == R.id.add_reminder) {
-//            // Handle the camera action
-//            // Create new fragment and transaction
+//        // Handle navigation view item clicks here.
+//        int id = item.getItemId();
 //
-//            Fragment newFragment = new ExampleFragment();
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//        Fragment fragment = null;
 //
-//            // Replace whatever is in the fragment_container view with this fragment,
-//            // and add the transaction to the back stack
-//           transaction.replace(R.id, newFragment);
-//           transaction.addToBackStack(null);
+//        if (id == R.id.add_reminder) {
 //
-//            // Commit the transaction
-//            transaction.commit();
+//
+//            fragment = new AddReminderFragment();
+//
+//
+//        } else if (id == R.id.add_health) {
+//
+//           // fragment = new AddHealthProviderFragment();
+//
+//        } else if (id == R.id.account_details) {
+//
+//          //  fragment = new AccountDetailFragment();
+//
+//        } else if (id == R.id.visit_website) {
+//
+//            String url = "http://vcheng3.github.io/";
+//            Intent i = new Intent(Intent.ACTION_VIEW);
+//            i.setData(Uri.parse(url));
+//            startActivity(i);
+//
+//
+//        } else if (id == R.id.share) {
+//
+//            Intent sendIntent = new Intent();
+//            sendIntent.setAction(Intent.ACTION_SEND);
+//            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//            sendIntent.setType("text/plain");
+//            startActivity(sendIntent);
+//
+//        } else if (id == R.id.logout) {
+//
+//      //      Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//      //      MainActivity.this.finish();
+//      //      startActivity(intent);
+//
+//        } else if(id == R.id.history){
+//
+//        //    fragment = new HistoryFragment();
+//
+//
+//        } else if(id == R.id.home_button){
+//
+//
+//        }
+//
+//        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//    //    transaction.replace(R.id.fragment_container, fragment);
+//        transaction.addToBackStack(null);
+//
+//        // Commit the transaction
+//        transaction.commit();
 
-
-        } else if (id == R.id.add_health) {
-
-
-        } else if (id == R.id.account_details) {
-
-        } else if (id == R.id.visit_website) {
-
-        } else if (id == R.id.share) {
-
-        } else if (id == R.id.logout) {
-
-        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RESULT_SPEECH: {
+                if (resultCode == RESULT_OK && null != data) {
+
+                    ArrayList<String> text = data
+                            .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+
+                    txtText.setText(text.get(0));
+                }
+                break;
+            }
+
+        }
     }
 }

@@ -33,6 +33,32 @@
             android:layout_height="wrap_content"
             android:text="Donald Trumpy"/>
 
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="trumpy@gmail.com"/>
+
+        <ImageView
+            android:onClick="openRecorder"
+            android:id="@+id/recorder"
+            android:paddingTop="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@drawable/recorder"/>
+
+        <TextView
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtText"/>
+
     </LinearLayout>
+
+
 
 </RelativeLayout>

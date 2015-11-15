@@ -2,12 +2,19 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+        <item android:id="@+id/home_button" android:icon="@android:drawable/ic_menu_view"
+            android:title="Home" />
+
         <item android:id="@+id/add_reminder" android:icon="@android:drawable/ic_menu_today"
             android:title="Add reminder" />
         <item android:id="@+id/add_health" android:icon="@android:drawable/ic_input_add"
             android:title="Add health provider" />
         <item android:id="@+id/account_details" android:icon="@android:drawable/ic_menu_info_details"
             android:title="Account details" />
+
+        <item android:id="@+id/history" android:icon="@android:drawable/ic_menu_recent_history"
+            android:title="History" />
+
         <item android:id="@+id/visit_website" android:icon="@android:drawable/ic_menu_manage"
             android:title="Visit website" />
 
