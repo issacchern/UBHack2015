@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -46,10 +47,19 @@ public class AddReminderActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddReminderActivity.this, MainActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(AddReminderActivity.this, HistoryActivity.class);
+                AddReminderActivity.this.startActivity(intent);
                 Toast.makeText(getApplicationContext(),"Reminder has been submitted!", Toast.LENGTH_LONG).show();
 
+                EditText editTextReminders = (EditText)findViewById(R.id.textEditString);
+                String reminders = editTextReminders.getText().toString().trim();
+
+                if(reminders.isEmpty()){
+                    return;
+                }
+                startActivityForResult(intent, 0);
+                HistoryActivity.arrayAdapterReminder.add(reminders);
+                editTextReminders.setText("");
             }
         });
 
