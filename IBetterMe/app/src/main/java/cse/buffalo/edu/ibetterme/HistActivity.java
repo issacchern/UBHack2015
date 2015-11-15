@@ -1,11 +1,11 @@
 package cse.buffalo.edu.ibetterme;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,40 +13,40 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
-/**
- * Created by Winnie on 11/15/15.
- */
-public class HistoryActivity extends AppCompatActivity {
+public class HistActivity extends AppCompatActivity {
     private ArrayList<String> arrayListReminder;
     public static ArrayAdapter<String> arrayAdapterReminder;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history);
-
+        setContentView(R.layout.activity_hist);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arrayListReminder = new ArrayList<String>();
+
         arrayAdapterReminder = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arrayListReminder);
         ListView listViewReminder = (ListView) findViewById(R.id.listViewReminders);
         listViewReminder.setAdapter(arrayAdapterReminder);
 
-      //  Intent getIntent = new Intent(HistoryActivity.this, AddReminderActivity.class);
+        //  Intent getIntent = new Intent(HistoryActivity.this, AddReminderActivity.class);
         String str = getIntent().getExtras().getString("ABC");
 
         registerForContextMenu(listViewReminder);
         try{
             Log.i("ON CREATE", "Hi, the on create has occurred");
 
-                arrayAdapterReminder.add(str);
+            arrayAdapterReminder.add("Set " + str + " reminder on 11/15");
+            arrayAdapterReminder.add("Missed medicine time on 11/3");
+            arrayAdapterReminder.add("Paid medical bill on time on 10/30");
+            arrayAdapterReminder.add("Took medicine on time on 10/23");
 
         }catch(Exception e){
             Log.i("ON CREATE", e.getMessage());
         }
     }
-
 
 
 
@@ -63,6 +63,17 @@ public class HistoryActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int i = item.getItemId();
+        switch(i){
+            case android.R.id.home:
+                this.finish();
+                return true;
 
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
 }

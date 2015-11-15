@@ -47,19 +47,18 @@ public class AddReminderActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddReminderActivity.this, HistoryActivity.class);
-                AddReminderActivity.this.startActivity(intent);
+                Intent intent = new Intent(AddReminderActivity.this, HistActivity.class);
+
                 Toast.makeText(getApplicationContext(),"Reminder has been submitted!", Toast.LENGTH_LONG).show();
+
+
 
                 EditText editTextReminders = (EditText)findViewById(R.id.textEditString);
                 String reminders = editTextReminders.getText().toString().trim();
+                intent.putExtra("ABC", reminders);
+                startActivity(intent);
 
-                if(reminders.isEmpty()){
-                    return;
-                }
-                startActivityForResult(intent, 0);
-                HistoryActivity.arrayAdapterReminder.add(reminders);
-                editTextReminders.setText("");
+
             }
         });
 

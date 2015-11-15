@@ -40,10 +40,19 @@
             android:label="Add reminder"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
-
         <activity
             android:name=".AddHealthCareProviderActivity"
             android:label="Add Health Provider"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".HistoryActivity"
+            android:label="History reminders"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".HistActivity"
+            android:label="@string/title_activity_hist"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
     </application>
