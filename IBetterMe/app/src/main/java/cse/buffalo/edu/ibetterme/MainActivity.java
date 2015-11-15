@@ -286,6 +286,14 @@ public class MainActivity extends AppCompatActivity
 
 
                     editText.setText(text.get(0),TextView.BufferType.EDITABLE);
+
+                    if(text.get(0).equals("help")){
+                        String posted_by = "111-333-2222";
+                        String uri = "tel:" + posted_by.trim() ;
+                        Intent intent = new Intent(Intent.ACTION_DIAL);
+                        intent.setData(Uri.parse(uri));
+                        startActivity(intent);
+                    }
                 }
                 break;
             }
